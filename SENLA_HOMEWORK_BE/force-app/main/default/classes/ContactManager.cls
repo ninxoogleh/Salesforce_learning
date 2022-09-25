@@ -11,8 +11,8 @@ public inherited sharing class ContactManager {
         return cnt;
     }
 
-    public static void deleteContact(List<String> contacts) {
-        delete [SELECT Id FROM Contact WHERE Contact.Phone IN :contacts];
+    public static Contact getContactByPhone(List<Contact> contacts, String phone) {
+        return Database.query('SELECT ' + phone + ' FROM Contact WHERE Contact.Name IN : contacts');
     }
 }
 /**
