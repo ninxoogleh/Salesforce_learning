@@ -37,6 +37,9 @@ public inherited sharing class PropertyManager {
         }
     }
 
+    public static Property__c getPropertyByAddress(List<Property__c> properties, String address) {
+        return Database.query('SELECT ' + address + ' FROM Property__c WHERE Property__r.Address IN : properties');
+    }
 
     public static Property__c createPropertyShort(PropertyPreparer preparer, Boolean serialize) {
         Property__c property = new Property__c();

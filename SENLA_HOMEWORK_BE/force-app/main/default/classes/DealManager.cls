@@ -34,6 +34,10 @@ public inherited sharing class DealManager {
         return dl;
     }
 
+    public static List<Deal__c> getDealsBySeller(List<Deal__c> deals, Contact seller) {
+        return Database.query('SELECT ' + seller.Name + ' FROM Deal WHERE Deal__r.Name IN : deals');
+    }
+
     public static void deleteDealByName(List<Deal> deals, String name) {
         delete [SELECT name FROM Deal__c WHERE Deal.Name IN : deals];
     }
