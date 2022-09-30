@@ -2,24 +2,20 @@ public inherited sharing class DealManager {
 
     public class DealPreparer {
 
-        public class InvalidTypeException extends Exception {}    
-
         public String seller {get; set;}
         public String buyer {get; set;}
         public String dealType {get; set;}
 
-        public static Id getRecordTypeIdbyName(String objectName, String strRecordTypeName) {
-            return  Schema.getGlobalDescribe().get(objectName).getDescribe().getRecordTypeInfosByName().get(strRecordTypeName).getRecordTypeId();
-        }
-
         public DealPreparer (String seller, String buyer, String dealType) {
             this.seller = seller;
             this.buyer = buyer;
-            try {
-                this.dealType = (dealType.equals('Leasing') || dealType.equals('Selling')) ? dealType : new InvalidTypeException();
-            } catch (InvalidTypeException e) {
+            if (dealType. == 'Leasing') {
+                this.dealType = dealType; 
+            } else if (dealType. == 'Selling') {
+                this.dealType = dealType; 
+            } else {
                 System.debug(/* очень вежливое сообщение о том что у объекта Deal может быть только 2 Record Type */);
-            }    
+            }
         }
     }
     
@@ -27,7 +23,7 @@ public inherited sharing class DealManager {
         Deal__c dl = new Deal__c();
         dl.Seller__c = dp.seller;
         dl.Buyer__c = dp.buyer;
-        dl.RecordTypeId = getRecordTypeIdbyName(Deal__c, dp.dealType);
+        dl.RecordTypeId = Utils.getRecordTypeIdbyName(Deal__c, dp.dealType);
         
         if (serialize) insert dl;
         
