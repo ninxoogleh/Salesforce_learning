@@ -10,14 +10,20 @@ public inherited sharing class ContactManager {
         return cnt;
     }
 
-    public static Contact getContactByPhone(List<Contact> contacts, String phone) {
-        return Database.query('SELECT ' + phone + ' FROM Contact WHERE Contact.Name IN : contacts');
+    public static String getAccountNameOfContact(String inputPhone) {
+        Contact contact = [SELECT Account.Name 
+                         FROM Contact 
+                         WHERE Phone = :inputPhone
+                         LIMIT 1];
+        return contact.Account.Name;
     }
 
-    
+    public static void updateContactsEmail (String inputPhone, String email) {
+        Contact contact = [SELECT Email FROM Contacts WHERE Phone = :inputPhone LIMIT 1];
+        contact.Email = email;
+    }
+
+    public static void deleteContact(String inputPhone) {
+        delete [SELECT Id FROM Contact WHERE Phone = :inputPhone];
+    }
 }
-/**
- * Сильно не хватает знаний по синтаксису SOQL, поэтому связанные с ними 
- * команды это тупо копипаст с примера)))
- * Усиленно заполняю пробелы в знаниях
- */
