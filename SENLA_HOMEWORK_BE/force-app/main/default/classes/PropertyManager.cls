@@ -1,8 +1,6 @@
 public inherited sharing class PropertyManager {
 
     public class PropertyPreparer {
-
-        public String name {get; set;}
         public String owner {get; set;}
         public String propertyType {get; set;}
         public String address {get; set;}
@@ -23,10 +21,6 @@ public inherited sharing class PropertyManager {
         }
     }
 
-    public static Property__c getPropertyByAddress(List<Property__c> properties, String address) {
-        return Database.query('SELECT ' + address + ' FROM Property__c WHERE Property__r.Address IN : properties');
-    }
-
     public static Property__c createPropertyShort(PropertyPreparer preparer, Boolean serialize) {
         Property__c property = new Property__c();
         property.Contact__c = preparer.owner;
@@ -38,7 +32,11 @@ public inherited sharing class PropertyManager {
         return property;
     }
 
-    public static void deletePropertyByAddress(List<Property> properties, String address) {
-        delete [SELECT address FROM Property__c WHERE Property__r.Address IN : properties];
+    public static Property__c getPropertyNameByAddress(String address) {
+        return [SELECT Name FROM Property__c WHERE Address = :address];
+    }
+
+    public static void deletePropertyByAddress(String address) {
+        delete [SELECT Id FROM Property__c WHERE Address = :address];
     }
 }
