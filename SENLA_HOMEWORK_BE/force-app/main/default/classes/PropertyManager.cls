@@ -16,7 +16,7 @@ public inherited sharing class PropertyManager {
             } else if (propertyType == 'Office') {	
                 this.propertyType = propertyType;
             } else {
-                System.debug(/* очень вежливое сообщение о том что у объекта Property может быть только 3 Record Types */);
+                System.debug('очень вежливое сообщение о том что у объекта Property может быть только 3 Record Types');
             }
         }
     }
@@ -25,7 +25,7 @@ public inherited sharing class PropertyManager {
         Property__c property = new Property__c();
         property.Contact__c = preparer.owner;
         property.Address__c = preparer.address;
-        property.RecordTypeId = Utils.getRecordTypeIdbyName(Property__c, preparer.dealType);
+        property.RecordTypeId = Utils.getRecordTypeIdbyName('Property__c', preparer.propertyType);
         
         if (serialize) insert property;
         
@@ -33,10 +33,10 @@ public inherited sharing class PropertyManager {
     }
 
     public static Property__c getPropertyNameByAddress(String address) {
-        return [SELECT Name FROM Property__c WHERE Address = :address];
+        return [SELECT Name FROM Property__c WHERE Address__c = :address];
     }
 
     public static void deletePropertyByAddress(String address) {
-        delete [SELECT Id FROM Property__c WHERE Address = :address];
+        delete [SELECT Id FROM Property__c WHERE Address__c = :address];
     }
 }
