@@ -1,4 +1,4 @@
-public with sharing class CommissionPercentManager {
+public inherited sharing class CommissionPercentManager {
     public CommissionPercentManager() {
 
     }
