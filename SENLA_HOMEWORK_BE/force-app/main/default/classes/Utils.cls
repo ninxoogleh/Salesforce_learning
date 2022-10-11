@@ -23,4 +23,9 @@ public with sharing class Utils {
    	    }
    	    if (String.isBlank(logMsg)) LogManager.log(errorSource, logMsg, true);
     }
+
+    // получаем лист с айдишниками целого листа записей без циклов
+    public static List<Id> GetIDFromListOfRecords (List<sObject> l) {
+        return new List<Id>(new Map<Id, sObject>(l).keySet());
+    }
 }
